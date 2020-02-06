@@ -21,7 +21,7 @@ int main(void) {
 
   C c1 = {1, 2, 3, 4}, c2 = {5, 6, 7, 8};
 
-  cout << c1.b.a + c2.a.b << endl;
+  cout << c1.b.a + c2.a.b << endl; // 4 + 6
 
   return 0;
 }
