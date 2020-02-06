@@ -3,4 +3,8 @@ project(cpa_2016_example_questions)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(cpa_2016_example_questions main.cpp)
+add_executable(cpa_2016_example_questions
+
+        question_01.cpp
+
+        )
