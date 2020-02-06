@@ -30,17 +30,35 @@ int main(void) {
   if (i > j && j > i)
     i++;
   if (i > j || j > i)
-    j++;
-  if (i | j)
-    i++;
-  if (i & j)
-    j++;
+    j++; // j = 3
 
-  cout << i * j << endl;
+  /* 1_10 = 01_2
+   * 3_10 = 11_2
+   *
+   *   01_2
+   * | 11_2
+   * ------
+   *   11_2 = 3_10 */
+  if (i | j)
+    i++; // i = 2
+
+  /* 2_10 = 10_2
+   * 3_10 = 11_2
+   *
+   *   10_2
+   * & 11_2
+   * ------
+   *   10_2 = 2_10 */
+  if (i & j)
+    j++; // j = 4
+
+  cout << i * j << endl; // 2 * 4 = 8
 
   return 0;
 }
 ```
 
 ## #Solution & Explanation Question 1
-#### Add solution + explanation here
+#### The correct answer is __**D. 8**__:
+* Logical and is true, if both sides are true. Logical or is true if at least one side is true. 
+* Every value different from 0 is evaluated to true. This is why the last two if statements are executed.

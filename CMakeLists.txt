@@ -1,4 +1,6 @@
+
 cmake_minimum_required(VERSION 3.15)
+
 project(cpa_2016_example_questions)
 
 set(CMAKE_CXX_STANDARD 20)
@@ -6,5 +8,9 @@ set(CMAKE_CXX_STANDARD 20)
 add_executable(cpa_2016_example_questions
 
         question_01.cpp
+#        question_02.cpp
+#        question_03.cpp
+#        question_04.cpp
+#        question_05.cpp
 
         )
