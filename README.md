@@ -30,35 +30,22 @@ int main(void) {
   if (i > j && j > i)
     i++;
   if (i > j || j > i)
-    j++; // j = 3
+    j++;                    // j = 3
 
-  /* 1_10 = 01_2
-   * 3_10 = 11_2
-   *
-   *   01_2
-   * | 11_2
-   * ------
-   *   11_2 = 3_10 */
-  if (i | j)
-    i++; // i = 2
+  if (i | j)                // 1 | 3 == 3
+    i++;                    // i = 2
 
-  /* 2_10 = 10_2
-   * 3_10 = 11_2
-   *
-   *   10_2
-   * & 11_2
-   * ------
-   *   10_2 = 2_10 */
-  if (i & j)
-    j++; // j = 4
+  if (i & j)                // 2 & 3 == 2
+    j++;                    // j = 4
 
-  cout << i * j << endl; // 2 * 4 = 8
+  cout << i * j << endl;    // 2 * 4 == 8
 
   return 0;
 }
 ```
 
 ## #Solution & Explanation Question 1
-#### The correct answer is __**D. 8**__:
-* Logical and is true, if both sides are true. Logical or is true if at least one side is true. 
-* Every value different from 0 is evaluated to true. This is why the last two if statements are executed.
+#### The correct answer is _**D. 8**_:
+* Logical and (_&&_) is true, if both sides are true. Logical or (_||_) is true if at least one side is true. 
+* _|_ and _&_ are bitwise or / and respectively. They work on the binary representation of the numbers.
+* Every value different from 0 is evaluated to true. This is why the last two if statements are executed (see comments).
