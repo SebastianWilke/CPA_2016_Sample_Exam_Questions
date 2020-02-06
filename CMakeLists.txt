@@ -7,10 +7,10 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(cpa_2016_example_questions
 
-        #        question_01.cpp
-        #        question_02.cpp
-        question_03.cpp
-        #        question_04.cpp
-        #        question_05.cpp
+        #        source_code/question_01.cpp
+        #        source_code/question_02.cpp
+        source_code/question_03.cpp
+        #        source_code/question_04.cpp
+        #        source_code/question_05.cpp
 
         )
