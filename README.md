@@ -20,8 +20,8 @@ Question | Source Code | Solution and Explanation
 [Question 3](#question-3) | [question_03.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_03.cpp) | [Solution & Explanation](#solution--explanation-question-3)
 [Question 4](#question-4) | [question_04.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_04.cpp) | [Solution & Explanation](#solution--explanation-question-4)
 [Question 5](#question-5) | [question_05.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_05.cpp) | [Solution & Explanation](#solution--explanation-question-5)
-[Question 5](#question-6) | [question_06.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_06.cpp) | [Solution & Explanation](#solution--explanation-question-6)
-[Question 5](#question-7) | [question_07.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_07.cpp) | [Solution & Explanation](#solution--explanation-question-7)
+[Question 6](#question-6) | [question_06.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_06.cpp) | [Solution & Explanation](#solution--explanation-question-6)
+[Question 7](#question-7) | [question_07.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_07.cpp) | [Solution & Explanation](#solution--explanation-question-7)
 
 <br/>
 
@@ -312,9 +312,11 @@ int main(void) {
 #### The correct answer is _C_ (3):
 * First an array ```t``` of int is created: We get a pointer to int for two ints - and at both of these positions we store the address of another 2-element-array - giving us space to store 4 ints. We now have an array of array of int.
 * We then loop through every element in ```t```. The following list shows the sequence in which the positions in ```t``` are assigned:
-*       i=0: t[0][0] = 0
-        i=1: t[1][0] = 1
-        i=2: t[0][1] = 2
-        i=3: t[1][1] = 3
+    ```
+    i=0: t[0][0] = 0
+    i=1: t[1][0] = 1
+    i=2: t[0][1] = 2
+    i=3: t[1][1] = 3
+    ```
 * Leaving ```t``` with elemets ```t = {{0, 2}, {1, 3}}```.
 * Note that we call the ```delete[]``` ([like delete but for arrays](https://en.cppreference.com/w/cpp/language/delete)) to destroy both arrays in ```t``` created by our ```new int[]```-expression earlier.
