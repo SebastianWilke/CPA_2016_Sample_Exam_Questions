@@ -28,15 +28,15 @@ Question | Source Code | Solution And Explanation
 [Question 11](#question-11) | [question_11.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_11.cpp) | [Solution & Explanation](#solution--explanation-to-question-11)
 [Question 12](#question-12) | [question_12.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_12.cpp) | [Solution & Explanation](#solution--explanation-to-question-12)
 [Question 13](#question-13) | [question_13.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_13.cpp) | [Solution & Explanation](#solution--explanation-to-question-13)
-[Question 13](#question-14) | [question_14.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_14.cpp) | [Solution & Explanation](#solution--explanation-to-question-14)
-[Question 13](#question-15) | [question_15.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_15.cpp) | [Solution & Explanation](#solution--explanation-to-question-15)
-[Question 13](#question-16) | [question_16.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_16.cpp) | [Solution & Explanation](#solution--explanation-to-question-16)
+[Question 14](#question-14) | [question_14.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_14.cpp) | [Solution & Explanation](#solution--explanation-to-question-14)
+[Question 15](#question-15) | [question_15.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_15.cpp) | [Solution & Explanation](#solution--explanation-to-question-15)
+[Question 16](#question-16) | [question_16.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_16.cpp) | [Solution & Explanation](#solution--explanation-to-question-16)
 
 <br/>
 
 <!--------------------QUESTION 1-------------------->
 
-## #Question 1
+# #Question 1
     What is the output of the following program?
     
         A. 2
@@ -77,7 +77,7 @@ int main(void) {
 
 <!--------------------QUESTION 2-------------------->
 
-## #Question 2
+# #Question 2
     What is the output of the following program?
     
         A.  6
@@ -121,7 +121,7 @@ int main(void) {
 
 <!--------------------QUESTION 3-------------------->
 
-## #Question 3
+# #Question 3
     What is the output of the following program?
     
         A. -2
@@ -158,7 +158,7 @@ int main(void) {
 
 <!--------------------QUESTION 4-------------------->
 
-## #Question 4
+# #Question 4
     What is the output of the following program?
     
         A.  4
@@ -200,7 +200,7 @@ int main(void) {
 
 <!--------------------QUESTION 5-------------------->
 
-## #Question 5
+# #Question 5
     What is the output of the following program?
     
         A. 1
@@ -248,7 +248,7 @@ int main(void) {
 
 <!--------------------QUESTION 6-------------------->
 
-## #Question 6
+# #Question 6
     What is the output of the following program?
     
         A. XYZ
@@ -287,7 +287,7 @@ int main(void) {
 
 <!--------------------QUESTION 7-------------------->
 
-## #Question 7
+# #Question 7
     What is the output of the following program?
     
         A. 1
@@ -332,7 +332,7 @@ int main(void) {
 
 <!--------------------QUESTION 8-------------------->
 
-## #Question 8
+# #Question 8
     What is the output of the following program?
     
         A. 0
@@ -369,7 +369,7 @@ int main(void) {
 
 <!--------------------QUESTION 9-------------------->
 
-## #Question 9
+# #Question 9
     What is the output of the following program?
     
         A. 1
@@ -410,7 +410,7 @@ int main(void) {
 
 <!--------------------QUESTION 10-------------------->
 
-## #Question 10
+# #Question 10
     What is the output of the following program?
     
         A. The program will cause a compilation error
@@ -450,7 +450,7 @@ int main(void) {
 
 <!--------------------QUESTION 11-------------------->
 
-## #Question 11
+# #Question 11
     What is the output of the following program?
     
         A. The program will cause a compilation error
@@ -503,7 +503,7 @@ int main(void) {
 
 <!--------------------QUESTION 12-------------------->
 
-## #Question 12
+# #Question 12
     What is the output of the following program?
     
         A. The program will cause a compilation error
@@ -549,7 +549,7 @@ int main(void) {
 
 <!--------------------QUESTION 13-------------------->
 
-## #Question 13
+# #Question 13
     What is the output of the following program?
     
         A. The program will cause a compilation error
@@ -595,7 +595,7 @@ int main(void) {
 
 <!--------------------QUESTION 14-------------------->
 
-## #Question 14
+# #Question 14
     What is the output of the following program?
     
         A. The program will cause a compilation error
@@ -645,7 +645,7 @@ int main(void) {
 
 <!--------------------QUESTION 15-------------------->
 
-## #Question 15
+# #Question 15
     What is the output of the following program?
     
         A. The program will cause a compilation error (or warning in some compilers)
@@ -704,7 +704,7 @@ In other words: when we add the friend declaration ```friend class B;``` in clas
 
 <!--------------------QUESTION 16-------------------->
 
-## #Question 16
+# #Question 16
     What is the output of the following program?
     
         A. The program will cause a compilation error
