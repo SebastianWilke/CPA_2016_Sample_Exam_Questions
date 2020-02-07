@@ -22,6 +22,9 @@ Question | Source Code | Solution and Explanation
 [Question 5](#question-5) | [question_05.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_05.cpp) | [Solution & Explanation](#solution--explanation-to-question-5)
 [Question 6](#question-6) | [question_06.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_06.cpp) | [Solution & Explanation](#solution--explanation-to-question-6)
 [Question 7](#question-7) | [question_07.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_07.cpp) | [Solution & Explanation](#solution--explanation-to-question-7)
+[Question 8](#question-8) | [question_08.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_08.cpp) | [Solution & Explanation](#solution--explanation-to-question-8)
+[Question 9](#question-9) | [question_09.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_09.cpp) | [Solution & Explanation](#solution--explanation-to-question-9)
+[Question 10](#question-10) | [question_10.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_10.cpp) | [Solution & Explanation](#solution--explanation-to-question-10)
 
 <br/>
 
@@ -320,3 +323,121 @@ int main(void) {
     ```
 * Leaving ```t``` with elemets ```t = {{0, 2}, {1, 3}}```.
 * Note that we call the ```delete[]``` ([like delete but for arrays](https://en.cppreference.com/w/cpp/language/delete)) to destroy both arrays in ```t``` created by our ```new int[]```-expression earlier.
+
+<!--------------------QUESTION 8-------------------->
+
+## #Question 8
+    What is the output of the following program?
+    
+        A. 0
+        B. 1
+        C. 2
+        D. 3
+        
+```cpp
+#include <iostream>
+#include <string>
+using namespace std;
+
+int main(void) {
+
+  string s = "Abc", t = "A";
+
+  s = s + t;                        // s = "AbcA"
+  t = t + s;                        // t = "AAbcA"
+
+  int i = s.compare(t) > 0;         // i == 1
+  int j = s.length() < t.length();  // j == 1
+
+  cout << i + j << endl;            // 1 + 1 == 2
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 8
+#### The correct answer is _C_ (2):
+* [+](https://en.cppreference.com/w/cpp/string/basic_string/operator%2B) as in ```s = s + t``` is the Non-member function of ```basic_string``` and just concatenates the strings ```s``` and ```t```.
+* Operator [compare](https://en.cppreference.com/w/cpp/string/basic_string/compare) checks the lexicographical order of the two strings. ```s.compare(t)``` returns a negative value, 0 or a positive if ```s``` comes before ```t```, both are equivalent or ```s``` comes after ```t``` in the lexicographical order. Since the character b comes after the letter A in the ascii table, ```s``` appears after ```t``` in lexicographically order. Thus ```compare()``` returns a positive value. A positive value is not greater than 0 (```s.compare(t) > 0```) so ```i``` gets assigned the value 1.
+* Since ```s``` has a shorter length than ```t``` the expression ```s.length() < t.length()``` evaluates to true and ```j``` gets assigned the value 1 as well.
+
+<!--------------------QUESTION 9-------------------->
+
+## #Question 9
+    What is the output of the following program?
+    
+        A. 1
+        B. 2
+        C. 3
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+namespace alpha {
+int var = 1;                // alpha::var == 1
+}
+
+namespace beta {
+int var = alpha::var + 1;   // beta::var == 2
+}
+
+int main(void) {
+
+  beta::var += alpha::var;  // beta::var == 3
+
+  {
+    using namespace beta;
+    cout << var << endl;    // 3
+  }
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 9
+#### The correct answer is _C_ (3):
+* This one is pretty straight forward. We have two named namespaces definitions namely ```alpha``` and  ```beta```.
+* In main we than access ```beta::var``` and add to it the value of ```alpha::var```.
+* We then define a new scope (block). With the using-directive ```using namespace beta;``` we make every name in the namespace ```beta``` visible (available) in this scope (area between ```{``` and ```}```). Therefore when we use ```var``` in this scope, ```var``` refers to ```beta::var``` and the output is 3.
+
+<!--------------------QUESTION 10-------------------->
+
+## #Question 10
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 2
+        D. 3
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+  int a;
+
+public:
+  A(void) { a = 1; }
+  int b(void) { return ++a; }
+};
+
+int main(void) {
+
+  A a;                      // A.a == 1
+  a.b();                    // A.a == 2
+
+  cout << a.b() << endl;    // 3
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 10
+#### The correct answer is _D_ (3):
+* Here we have a class ```A``` that has one private member ```a```, a constructor ```A()``` that initializes this ```a``` and a public member-function ```b()``` which pre-increments ```a``` and returns its value.
+* In main we create an object of type ```A```. ```A.a``` gets initialized to 1 by the constructor.
+* We then call the member-function ```b()``` which increments the member-variable ```a``` and therefore now stores the value 2. Here we just discard the return value of ```b()```.
+* Finally we call ```b()``` once more, this time using (printing) its return value. ```a``` gets pre-incremented and returned and the output will be 3.
