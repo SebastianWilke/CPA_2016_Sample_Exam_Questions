@@ -14,7 +14,7 @@
 <br/>
 
 Question | Source Code | Solution And Explanation
----|---|---
+---:|---|:---:
 [Question 1](#question-1) | [question_01.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_01.cpp) | [Solution & Explanation](#solution--explanation-to-question-1)
 [Question 2](#question-2) | [question_02.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_02.cpp) | [Solution & Explanation](#solution--explanation-to-question-2)
 [Question 3](#question-3) | [question_03.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_03.cpp) | [Solution & Explanation](#solution--explanation-to-question-3)
