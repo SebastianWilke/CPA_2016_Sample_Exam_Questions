@@ -25,6 +25,9 @@ Question | Source Code | Solution And Explanation
 [Question 8](#question-8) | [question_08.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_08.cpp) | [Solution & Explanation](#solution--explanation-to-question-8)
 [Question 9](#question-9) | [question_09.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_09.cpp) | [Solution & Explanation](#solution--explanation-to-question-9)
 [Question 10](#question-10) | [question_10.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_10.cpp) | [Solution & Explanation](#solution--explanation-to-question-10)
+[Question 11](#question-11) | [question_11.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_11.cpp) | [Solution & Explanation](#solution--explanation-to-question-11)
+[Question 12](#question-12) | [question_12.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_12.cpp) | [Solution & Explanation](#solution--explanation-to-question-12)
+[Question 13](#question-13) | [question_13.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_13.cpp) | [Solution & Explanation](#solution--explanation-to-question-13)
 
 <br/>
 
