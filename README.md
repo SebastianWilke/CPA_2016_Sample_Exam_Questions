@@ -7,9 +7,11 @@
 
 Question | Source Code | Solution and Explanation
 ---|---|---
-[Question 1](#question-1) | [question_01.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/question_01.cpp) | [Solution & Explanation](#solution--explanation-question-1)
-[Question 2](#question-2) | [question_02.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/question_02.cpp) | [Solution & Explanation](#solution--explanation-question-2)
-[Question 3](#question-3) | [question_03.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/question_03.cpp) | [Solution & Explanation](#solution--explanation-question-3)
+[Question 1](#question-1) | [question_01.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_01.cpp) | [Solution & Explanation](#solution--explanation-question-1)
+[Question 2](#question-2) | [question_02.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_02.cpp) | [Solution & Explanation](#solution--explanation-question-2)
+[Question 3](#question-3) | [question_03.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_03.cpp) | [Solution & Explanation](#solution--explanation-question-3)
+[Question 4](#question-4) | [question_04.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_04.cpp) | [Solution & Explanation](#solution--explanation-question-4)
+[Question 5](#question-5) | [question_05.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_05.cpp) | [Solution & Explanation](#solution--explanation-question-5)
 
 <br/>
 
@@ -47,7 +49,7 @@ int main(void) {
 ```
 
 ## #Solution & Explanation Question 1
-#### The correct answer is _D_:
+#### The correct answer is _D_ (8):
 * Logical and (```&&```) is true, if both sides are true. Logical or (```||```) is true if at least one side is true. 
 * ```|``` and ```&``` are bitwise or / and respectively. They work on the binary representation of the numbers.
 * Every value different from 0 is evaluated to true. This is why the last two if statements are executed (see comments).
@@ -89,8 +91,8 @@ int main(void) {
 }
 ```
 
-## #Solution & Explanation Question 3
-#### The correct answer is _C_:
+## #Solution & Explanation Question 2
+#### The correct answer is _C_ (10):
 * Confusing member variable names. Not that difficult if you concentrate.
 * Note that the initialization of struct c1/c2 first assigns the values to its first member, than the second, ...
 
@@ -121,10 +123,97 @@ int main(void) {
 ```
 
 ## #Solution & Explanation Question 3
-#### The correct answer is _B_:
+#### The correct answer is _B_ (-1):
 * Note that in C++ array names (here ```t```) represent the address of its first element (```t[0]```). Therefore ```t + 2``` represents position 2 (zero-indexed) in the array ```t```.
 * In C++ pointer simply represent memory addresses.
 * ```p1 - 1``` represents the array position one before the one ```p1``` is currently pointing to.
 * ```p1++``` advances the pointer by one position, letting it point to the next element after the one ```p1``` it is currently pointing to.
 * ```p1 - p2``` operates on the addresses of the pointers. Since ```p1``` points to the third element (zero-indexed) of ```t```, and ```p2```  points to the first element (zero-indexed) of ```t```, there are two positions between them.
 * ```int *p1 = t + 2``` declares and initializes a pointer to int. On the other hand ```*p1``` in ```*p1 - t[p1 - p2]``` dereferences the value (looks at what ```p1``` is pointing to / what value is at this memory address).
+
+
+## #Question 4
+    What is the output of the following program?
+    
+        A.  4
+        B.  6
+        C.  8
+        D. 10
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+int fun1(int p) {
+  ++p;
+  return p++;
+}
+
+int fun2(int &p) {
+  ++p;
+  return p++;
+}
+
+int main(void) {
+
+  int a = 1, b, c;              // a = 1
+
+  b = fun1(a);                  // b = 2
+  c = fun2(b);                  // c = 3, b = 4
+
+  cout << a + b + c << endl;    // 1 + 4 + 3 == 8
+
+  return 0;
+}
+```
+
+## #Solution & Explanation Question 4
+#### The correct answer is _C_ (8):
+* ```b``` gets assigned the value returned by function ```fun1```. This function takes an int (per value), increments it and returns it. Note that ```return p++``` returns the value and then increments it. In this case we call ```fun1``` with a = 1, so it returns 2.
+* ```c``` gets assigned the value returned by function ```fun2```. But this time we are passing it a reference to int (a reference to b = 2). Now the increment ```++p``` in ```fun2``` modifies the value of ```b``` (see comments)! Again we return it and increment it. Thus we return 3 but ```b``` gets post-incremented and now holds the value 4.
+
+## #Question 5
+    What is the output of the following program?
+    
+        A. 1
+        B. 2
+        C. 3
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+int *fun(void) { return new int[2]; }
+
+int fun(int *p) {
+  delete[] p;
+  return 0;
+}
+
+void fun(int *p, int q) { p[q] *= 2; }
+
+void fun(int *p, int q, int r) { p[q] = r; }
+
+int main(void) {
+
+  int *v = fun();
+
+  fun(v, 0, 1);                 // v[0] == 1
+  fun(v, 1, 2);                 // v[1] == 2
+  fun(v, 0);                    // v[0] == 2
+
+  cout << v[1] + v[0] << endl;  // 2 + 2 == 4
+
+  fun(v);
+
+  return 0;
+}
+```
+
+## #Solution & Explanation Question 5
+#### The correct answer is _D_ (4):
+* In C++ you can overload functions. That means functions can have the same name but must have different signatures (different parameters).
+* ```v``` is a pointer to int and gets assigned the value returned by function ```fun``` which returns a pointer to the beginning (starting address) of an int array of size 2.
+* Then follow two calls to function ```fun(int *, int, int)```. This function is pretty straight forward and sets the value at the passed int pointer at position of the second argument to the value of the third parameter (see comments).
+* ```fun(int *, int)``` just doubles the value stored at the position of the second parameter where the first parameter points to. 

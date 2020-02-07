@@ -17,11 +17,11 @@ int main(void) {
 
   int *v = fun();
 
-  fun(v, 0, 1);
-  fun(v, 1, 2);
-  fun(v, 0);
+  fun(v, 0, 1); // v[0] == 1
+  fun(v, 1, 2); // v[1] == 2
+  fun(v, 0);    // v[0] *= 2 == 2
 
-  cout << v[1] + v[0] << endl;
+  cout << v[1] + v[0] << endl; // 2 + 2 == 4
 
   fun(v);
 
