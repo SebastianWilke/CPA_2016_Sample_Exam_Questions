@@ -22,6 +22,12 @@ add_executable(cpa_2016_example_questions
         #        source_code/question_13.cpp
         #        source_code/question_14.cpp
         #        source_code/question_15.cpp
-        source_code/question_16.cpp
+        #        source_code/question_16.cpp
+        #        source_code/question_17.cpp
+        #        source_code/question_18.cpp
+        source_code/question_19.cpp
+        #        source_code/question_20.cpp
+        #        source_code/question_21.cpp
+        #        source_code/question_22.cpp
 
         )

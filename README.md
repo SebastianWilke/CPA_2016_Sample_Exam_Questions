@@ -1,14 +1,14 @@
 
 # cpa_2016_example_questions
 
-### This repository is intended to serve as a look-up for questions, solutions and explanations to the 2016 C++ Certified Associate Programmer - CPA example questions by [C++ Institude](https://cppinstitute.org/).
+### This repository is intended to serve as a look-up for questions, solutions and explanations to the 2016 C++ Certified Associate Programmer - CPA example questions by [C++ Institute](https://cppinstitute.org/).
 
 ### All questions can also be found in [this PDF](https://cppinstitute.org/wp-content/uploads/2016/07/CPA_sample_exam_questions.pdf).
 
 #### *NOTES:*
 * I do not own any rights on these questions.
 * These are advanced questions and should not be used as starting point for learning C++.
-* Feel free to report any mistake made in this document.
+* Feel free to report any mistakes made in this document.
 
 <br/>
 <br/>
@@ -31,6 +31,12 @@ Question | Source Code | Solution And Explanation
 [Question 14](#question-14) | [question_14.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_14.cpp) | [Solution & Explanation](#solution--explanation-to-question-14)
 [Question 15](#question-15) | [question_15.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_15.cpp) | [Solution & Explanation](#solution--explanation-to-question-15)
 [Question 16](#question-16) | [question_16.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_16.cpp) | [Solution & Explanation](#solution--explanation-to-question-16)
+[Question 17](#question-17) | [question_17.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_17.cpp) | [Solution & Explanation](#solution--explanation-to-question-17)
+[Question 18](#question-18) | [question_18.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_18.cpp) | [Solution & Explanation](#solution--explanation-to-question-18)
+[Question 19](#question-19) | [question_19.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_19.cpp) | [Solution & Explanation](#solution--explanation-to-question-19)
+[Question 20](#question-20) | [question_20.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_20.cpp) | [Solution & Explanation](#solution--explanation-to-question-20)
+[Question 21](#question-21) | [question_21.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_21.cpp) | [Solution & Explanation](#solution--explanation-to-question-21)
+[Question 22](#question-22) | [question_22.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_22.cpp) | [Solution & Explanation](#solution--explanation-to-question-22)
 
 <br/>
 
@@ -745,8 +751,263 @@ int main(void) {
 ```
 
 ## #Solution & Explanation To Question 16
-#### The correct answer is _X_ (Y):
+#### The correct answer is _B_ (3):
 * Class ```A``` has a [static member](https://en.cppreference.com/w/cpp/language/static) ```a```. This means that ```a``` is not bound to this specific class instance.
 * In main we create an object of type ```A``` called ```a```. Then a [try-catch-block](https://en.cppreference.com/w/cpp/language/try_catch) follows. The formal parameter of the catch clause (here simply string &) determines which types of exceptions cause this catch clause to be entered.
-* In the try block we are calling function ```f()```. This function just creates another object of type ```A``` called ```a```. This ```a``` does not interfere with the a in main because they are in different _scopes_. The constructor of class ```A``` post-increments ```a``` by one. Again ```a``` is not bound to any specific instance (is shared between all instances of class ```A```) thus was holding the value 2 and got incremented to 3 now. ```f()``` then trows a string, namely "?".
+* In the try block we are calling function ```f()```. This function just creates another object of type ```A``` called ```a```. This ```a``` does not interfere with the a in main because they are in different _scopes_. The constructor of class ```A``` post-increments ```a```. Again ```a``` is not bound to any specific instance (is shared between all instances of class ```A```) thus was holding the value 2 and got incremented to 3 now. ```f()``` then trows a string, namely "?".
 * This string ("?") gets caught in main although nothing is done in the _catch clause_. We print the value of the static variable using the scope resolution operator ```::``` ([see](https://en.cppreference.com/w/cpp/language/qualified_lookup)) giving us a value of 3.
+
+<!--------------------QUESTION 17-------------------->
+
+# #Question 17
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 3
+        C. 4
+        D. 5
+        
+```cpp
+#include <iostream>
+#include <exception>
+#include <stdexcept>
+using namespace std;
+
+void f(void) { throw domain_error("err"); }
+
+int main(void) {
+
+  int a = 4;
+
+  try {
+    f();
+  } catch (runtime_error &e) {
+    a--;
+  } catch (...) {
+    a++;
+  }
+
+  cout << a << endl;                            // a == 5
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 17
+#### The correct answer is _D_ (5):
+* First of all: what is a [domain_error](https://en.cppreference.com/w/cpp/error/domain_error)? It is a situation where the inputs are outside of the domain on which an operation is defined.
+* In main we have a try-catch-block which catches a [runtime_error](https://en.cppreference.com/w/cpp/error/runtime_error) -exception in its first catch-clause and catches any exception in its second catch-clause. Because the function ```f()``` does not throw a runtime_error we enter the second catch-clause and ```a``` gets post-incremented.
+* Therefore the output is 5.
+
+<!--------------------QUESTION 18-------------------->
+
+# #Question 18
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 3
+        C. 4
+        D. 5
+        
+```cpp
+#include <iostream>
+#include <exception>
+using namespace std;
+
+int i = 1;
+
+void f(void) {
+  throw 1;
+  i++;
+}
+
+void g(void) {
+  i++;
+  try {
+    f();
+  } catch (int &i) {
+    throw ++i;
+  }
+}
+
+int main(void) {
+                            // i == 1
+  try {
+    g();                    // i == 2
+    i++;
+  } catch (...) {
+    i++;                    // i == 3
+  }
+
+  cout << i << endl;        // output: 3
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 18
+#### The correct answer is _B_ (3):
+* Two small things: Since ```i``` is declared outside of any scope it is a _global variable_. the ```i++;``` in the function ```f()``` after the trow instruction is essentially dead code - it cannot be reached.
+* Starting in main we call the function ```g()``` in the try-catch-clause. In the function ```g()``` we post-increment i (now holds value 2) and call ```f()``` inside yet another try-catch-clause. Inside ```f()``` we just throw 1 (which btw is a bad practice since the type _int_ is not derived from _std::exception_) - As mentioned before the ```i++```-instruction is unreachable. Back in ```g()``` we catch the 1 thus enter the catch-clause in function ```g()```. Note that the ```i``` in ```throw ++i;``` refers to the parameter of the catch-clause and _not_ to the global variable ```i```.
+* Back in main. Since there was something (an int) thrown and we are catching any exception the ```i++``` after the ```g();``` call is _not_ being executed! we catch the thrown 1 and post-increment ```i```. Therefore the output will be 3. See comments in above code to see when ```i``` actually changes.
+
+<!--------------------QUESTION 19-------------------->
+
+// TODO
+
+# #Question 19
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 3
+        C. 4
+        D. 5
+        
+```cpp
+
+```
+
+## #Solution & Explanation To Question 19
+#### The correct answer is _X_ (Y):
+
+<!--------------------QUESTION 20-------------------->
+
+# #Question 20
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 2
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  int v;
+
+  A() : v(1) {}
+
+  A(int i) : v(i) {}
+
+  void operator&&(int a) { v = -v; }
+};
+
+int main(void) {
+
+  A i = 2;
+
+  i && 2;
+
+  cout << i << endl;
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 20
+#### The correct answer is _A_ (compilation error):
+* We get ```error: no match for ‘operator<<’ (operand types are ‘std::ostream’ {aka ‘std::basic_ostream<char>’} and ‘A’)```.
+* The ```&&```-operator overload is perfectly valid. For the code to work we would have to define a ```<<```-operator overload for our class ```A``` as well. This could look something like this:
+```cpp
+ostream &operator<<(ostream &os, A &a) {
+  os << a.v;
+  return os;
+}
+```
+We then could add this function as a friend to our class:
+```cpp
+  ...
+
+  void operator&&(int a) { v = -v; }
+ 
+  friend ostream &operator<<(ostream &os, A &a);         // new!
+};
+```
+and everything would work.
+
+
+<!--------------------QUESTION 21-------------------->
+
+# #Question 21
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 2
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  int v;
+
+  A() : v(1) {}
+
+  A(int i) : v(i) {}
+
+  void operator**(int a) { v *= a; }
+};
+
+int main(void) {
+
+  A i = 2;
+  i ** 2;
+
+  cout << i.v << endl;
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 21
+#### The correct answer is _A_ (compilation error):
+* We are trying to overload an operator which cannot be overloaded. See [this](https://en.cppreference.com/w/cpp/language/operators) for a list of operators that can be overloaded.
+
+<!--------------------QUESTION 22-------------------->
+
+# #Question 22
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error (or warning in some compilers)
+        B. 1
+        C. 3
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+enum e { a = 1, b, c, d };
+
+e &operator--(e &x) {
+  x = b;
+  return x;
+}
+
+int main(void) {
+
+  e f = c;
+
+  cout << int(f--) << endl;
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 22
+#### The correct answer is _A_ (compilation error):
+* We get ```error: no ‘operator--(int)’ declared for postfix ‘--’```.
+* Note that it is possible to overload operators for enums in C++. What went wrong here is we defined a the prefix increment operator but try to use a postfix increment operator. To fix this we would have to add an additional int parameter like this <br/>
+```cpp
+e &operator--(e &x, int) {
+  x = b;
+  return x;
+}
+```
+to distinguish post / pre-increment. Then the code would compile.
