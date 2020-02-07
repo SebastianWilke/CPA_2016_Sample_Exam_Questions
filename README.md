@@ -1048,7 +1048,7 @@ int main(void) {
 ## #Solution & Explanation To Question 22
 #### The correct answer is _A_ (compilation error):
 * We get ```error: no ‘operator--(int)’ declared for postfix ‘--’```.
-* Note that it is possible to overload operators for enums in C++. What went wrong here is we defined a the prefix increment operator but try to use a postfix increment operator. To fix this we would have to add an additional int parameter like this <br/>
+* Note that it is possible to overload operators for enums in C++. What went wrong here is we defined a prefix-increment operator but try to use a postfix-increment operator. To fix this we would have to add an additional int parameter (a dummy is sufficient) like this <br/>
 ```cpp
 e &operator--(e &x, int) {
   x = b;
