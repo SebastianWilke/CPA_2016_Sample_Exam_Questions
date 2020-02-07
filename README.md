@@ -28,6 +28,9 @@ Question | Source Code | Solution And Explanation
 [Question 11](#question-11) | [question_11.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_11.cpp) | [Solution & Explanation](#solution--explanation-to-question-11)
 [Question 12](#question-12) | [question_12.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_12.cpp) | [Solution & Explanation](#solution--explanation-to-question-12)
 [Question 13](#question-13) | [question_13.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_13.cpp) | [Solution & Explanation](#solution--explanation-to-question-13)
+[Question 13](#question-14) | [question_14.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_14.cpp) | [Solution & Explanation](#solution--explanation-to-question-14)
+[Question 13](#question-15) | [question_15.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_15.cpp) | [Solution & Explanation](#solution--explanation-to-question-15)
+[Question 13](#question-16) | [question_16.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_16.cpp) | [Solution & Explanation](#solution--explanation-to-question-16)
 
 <br/>
 
@@ -589,3 +592,161 @@ int main(void) {
 * Class ```B``` defines a function, namely ```d()``` that has the same name as a function in its superclass. This is called ```function overriding```. B _redefines_ function ```b()```. Note that since ```B``` inherits from ```A```, we could call ```b.d()``` even if had not defined the function ```d()``` in ```B```! It would just call the function ```d()``` of its superclass ```A``` in that case.
 * The call to ```b.d()``` calls the overridden function instead of the one defined in ```A```. Here ```B.d()``` calls ```A.d()``` and ```b.x``` gets divided by 2.
 * Rest see comments in above code.
+
+<!--------------------QUESTION 14-------------------->
+
+## #Question 14
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 2
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  int work(void) { return 4; }
+};
+
+class B : public A {
+public:
+  int relax(void) { return 2; }
+};
+
+class C : public A {
+public:
+  int relax(void) { return 1; }
+};
+
+int main(void) {
+  A *a0 = new A, *a1 = new B, *a2 = new C;
+
+  cout << a0->work() +                              // calls A.relax(), returns 4
+              static_cast<C *>(a2)->relax() /       // calls C.relax(), returns 1
+                  static_cast<B *>(a1)->relax()     // calls B.relax(), returns 2
+       << endl;                                     // output: (4 + (1 / 2)) == 4
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 14
+#### The correct answer is _D_ (4):
+* We have ```A``` as a base class of class ```B``` and class ```C``` inherent publicly. Both of theses classes add their own ```relax()```-function.
+* In main we create three objects of type ```A *```, assigning them an object of type ```A```, ```B``` and ```C``` respectively using the new-expressions. This is possible since class ```B``` and class ```C``` can be thought of as extensions of class ```A``` (having a anonymous/invisible reference of ```A``` in them).
+* We then first call ```a0->work()``` which calls ```A```'s ```work()```-function as expected.
+* After that we [static_cast](https://en.cppreference.com/w/cpp/language/static_cast) ```a2``` which is of base type ```A *``` to type ```C *```. When now calling the ```relax()```-function we are calling ```C.relax()```.
+* We do the same thing with ```a1``` but this time static_cast it to type ```B *```. When now calling the ```relax()```-function we are calling ```B.relax()```.
+* For the output we have to follow the [operator precedence](https://en.cppreference.com/w/cpp/language/operator_precedence) so we print (4 + (1 / 2)) which is 4.
+
+<!--------------------QUESTION 15-------------------->
+
+## #Question 15
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error (or warning in some compilers)
+        B. 1
+        C. 2
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class B;
+
+class A {
+  friend class B;
+  int a;
+
+public:
+  A() : a(4) {}
+  void f(B &b, A &a);
+  int out(void) { return a; }
+};
+
+class B {
+  friend class A;
+  int b;
+
+public:
+  B() : b(2) {}
+  void f(A &a) { a.a /= b; }
+};
+
+void A::f(B &b, A &a) { b.f(*this); }
+
+int main(void) {
+
+  A a;                          // a.a == 4
+  B b;                          // b.b == 2
+
+  a.f(b, a);                    // a.a == 2, b.b == 2
+
+  cout << a.out() << endl;      // output: 2
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 15
+#### The correct answer is _C_ (2):
+* At the beginning we are ```forward declaring``` ```class B```. This is done so we are able to use this name before having it defined below. It allows use to use it in the class ```A```.
+* We are also seeing [friend declarations](https://en.cppreference.com/w/cpp/language/friend) both in class ```A``` and in class ```B```. This declaration grants a function or another class access to private and protected members of the class where the friend declaration appears.<br/>
+In other words: when we add the friend declaration ```friend class B;``` in class ```A```, we give class ```A``` access to private and protected members of class ```B```.
+* In main we first create an object of type ```A``` called ```a``` and another object of type ```B``` called ```b```.
+* We then call ```a.f()``` with reference to these objects ```b``` and ```a```. This function in turn calls ```b.f()``` with the [*this pointer](https://en.cppreference.com/w/cpp/language/this) whose value is the address of the object, on which the member function is being called (hence the address of object ```a```). We enter ```B.f()``` with a reference to the object ```a```. ```a.a``` gets divided by ```b```, which still has value 2 - thus leaving ```a.a``` with value (4 / 2) == 2.
+* Finally we are calling ```a.out()``` returning the value of ```a.a``` which is 2.
+
+<!--------------------QUESTION 16-------------------->
+
+## #Question 16
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 3
+        C. 4
+        D. 5
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  static int a;
+  A() { a++; }
+};
+
+int A::a = 1;
+
+void f(void) {
+  A a;
+  throw string("?");
+}
+
+int main(void) {
+                                // A::a == 1
+  A a;                          // A::a == 2
+
+  try {
+    f();                        // A::a == 3
+  } catch (string &s) {
+  }
+
+  cout << A::a << endl;
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 16
+#### The correct answer is _X_ (Y):
+* Class ```A``` has a [static member](https://en.cppreference.com/w/cpp/language/static) ```a```. This means that ```a``` is not bound to this specific class instance.
+* In main we create an object of type ```A``` called ```a```. Then a [try-catch-block](https://en.cppreference.com/w/cpp/language/try_catch) follows. The formal parameter of the catch clause (here simply string &) determines which types of exceptions cause this catch clause to be entered.
+* In the try block we are calling function ```f()```. This function just creates another object of type ```A``` called ```a```. This ```a``` does not interfere with the a in main because they are in different _scopes_. The constructor of class ```A``` post-increments ```a``` by one. Again ```a``` is not bound to any specific instance (is shared between all instances of class ```A```) thus was holding the value 2 and got incremented to 3 now. ```f()``` then trows a string, namely "?".
+* This string ("?") gets caught in main although nothing is done in the _catch clause_. We print the value of the static variable using the scope resolution operator ```::``` ([see](https://en.cppreference.com/w/cpp/language/qualified_lookup)) giving us a value of 3.
