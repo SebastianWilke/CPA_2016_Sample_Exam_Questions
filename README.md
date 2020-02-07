@@ -1,9 +1,9 @@
 
 # cpa_2016_example_questions
 
-### This repository is intended to serve as a look-up for questions, solutions and explanations to the C++ Certified Associate Programmer - CPA example questions by [C++ Institude](https://cppinstitute.org/) from 2016.
+### This repository is intended to serve as a look-up for questions, solutions and explanations to the 2016 C++ Certified Associate Programmer - CPA example questions by [C++ Institude](https://cppinstitute.org/).
 
-### All questions can also be found in [this pdf](https://cppinstitute.org/wp-content/uploads/2016/07/CPA_sample_exam_questions.pdf).
+### All questions can also be found in [this PDF](https://cppinstitute.org/wp-content/uploads/2016/07/CPA_sample_exam_questions.pdf).
 
 #### *NOTES:*
 * I do not own any rights on these questions.
@@ -13,7 +13,7 @@
 <br/>
 <br/>
 
-Question | Source Code | Solution and Explanation
+Question | Source Code | Solution And Explanation
 ---|---|---
 [Question 1](#question-1) | [question_01.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_01.cpp) | [Solution & Explanation](#solution--explanation-to-question-1)
 [Question 2](#question-2) | [question_02.cpp](https://github.com/SebastianWilke/cpa_2016_example_questions/blob/master/source_code/question_02.cpp) | [Solution & Explanation](#solution--explanation-to-question-2)
@@ -236,7 +236,7 @@ int main(void) {
 ## #Solution & Explanation To Question 5
 #### The correct answer is _D_ (4):
 * In C++ you can overload functions. That means functions can have the same name but must have different [signatures](https://en.cppreference.com/w/cpp/language/function) (different parameters).
-* ```v``` is a pointer to int and gets assigned the value returned by function ```fun``` which returns a pointer to the beginning (starting address) of an int array of size 2.
+* ```v``` is a pointer to int and gets assigned the value returned by function ```fun()``` which returns a pointer to the beginning (starting address) of an int array of size 2.
 * Then follow two calls to function ```fun(int *, int, int)```. This function is pretty straight forward and sets the value at the passed int pointer at position of the second argument to the value of the third parameter (see comments).
 * ```fun(int *, int)``` just doubles the value stored at the position of the second parameter where the first parameter points to.
 
@@ -275,8 +275,8 @@ int main(void) {
 
 ## #Solution & Explanation To Question 6
 #### The correct answer is _D_ (yza):
-* ```f1``` uses the [ternary operator](https://en.cppreference.com/w/cpp/language/operator_other). It checks whether the passed char is equal to 'z'. If it is, the function returns 'a'. If it is not, the function returns the next char in the [ascii table](http://man7.org/linux/man-pages/man7/ascii.7.html) (```c + 1```).
-* ```f2``` simply passes its only argument to ```f1``` and since it is passed by reference (```char &c```) ```c``` also gets set to this return value. In other words variable ```x``` in main gets set to this return value. Finally ```c``` is returned from the function.
+* ```f1()``` uses the [ternary operator](https://en.cppreference.com/w/cpp/language/operator_other). It checks whether the passed char is equal to 'z'. If it is, the function returns 'a'. If it is not, the function returns the next char in the [ascii table](http://man7.org/linux/man-pages/man7/ascii.7.html) (```c + 1```).
+* ```f2()``` simply passes its only argument to ```f1()``` and since it is passed by reference (```char &c```) ```c``` also gets set to this return value. In other words variable ```x``` in main gets set to this return value. Finally ```c``` is returned from the function.
 * See the comments to understand how ```x``` is changing.
 
 <!--------------------QUESTION 7-------------------->
@@ -441,3 +441,148 @@ int main(void) {
 * In main we create an object of type ```A```. ```A.a``` gets initialized to 1 by the constructor.
 * We then call the member-function ```b()``` which increments the member-variable ```a``` and therefore now stores the value 2. Here we just discard the return value of ```b()```.
 * Finally we call ```b()``` once more, this time using (printing) its return value. ```a``` gets pre-incremented and returned and the output will be 3.
+
+<!--------------------QUESTION 11-------------------->
+
+## #Question 11
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 10
+        C. 01
+        D. 11
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  A() { a.a = a.b = 1; }
+
+  struct {
+    int a, b;
+  } a;
+
+  int b(void);
+};
+
+int A::b(void) {
+  int x = a.a;
+  a.a = a.b;
+  a.b = x;
+  return x;
+};
+
+int main(void) {
+
+  A a;                              // a.a.a == 1, a.a.b == 1
+  a.a.a = 0;                        // a.a.a == 0, a.a.b == 1
+  a.b();                            // a.a.a == 1, a.a.b == 0
+
+  cout << a.b() << a.a.b << endl;   // output: 1, a.a.a == 0, a.a.b == 1, output: 1
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 11
+#### The correct answer is _D_ (11): (Note that the document suggest B as answer, which is wrong imo)
+* We have a class ```A``` that has a constructor which initializes the public member ```struct a```. It also has a public member-function ```b()``` which is only declared in the class but later defined.
+* The member-function ```b()``` essentially swaps the values of the members ```a``` and ```b``` in the ```struct a``` and returns ```a.a```'s old value.
+* In main we create an object of type ```A``` called ```a```. Both ```a.a.a``` and ```a.a.b``` get initialized to 1 by the constructor.
+* We than set ```a.a.a``` to 0 before calling ```a.b()```. Here we are ignoring the return value of ```b()```.
+* Finally we call ```b()``` again this time using (printing) its return value. This is the value of the struct field ```a.a``` before the swap - here 1. Be careful! ```a.a.b``` got swapped with ```a.a.a``` by the previous call to ```b()``` and now holds the value 1 - giving us a result of 11.
+
+
+<!--------------------QUESTION 12-------------------->
+
+## #Question 12
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 3
+        D. 5
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  int a;
+
+  A() { a = 0; }
+
+  A(int b) { a = b + 1; }
+};
+
+class B {
+public:
+  A a;
+
+  B() : a(0) {}
+};
+
+int main(void) {
+
+  B *b = new B();               // b.a.a == 1
+
+  cout << b->a.a << endl;
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 12
+#### The correct answer is _B_ (1):
+* This time starting in main we create an object of type ```B *``` called ```b``` assigning it the pointer returned by the new operator call ```new B()```.
+* Thus the constructor of class ```B``` is called. This in turn calls the constructor ```A(int)``` of its member ```a```. ```B```'s ```a.a``` is set by ```A```'s constructor to the parameter passed + 1 = 0 + 1 = 1.
+* This value (1) is printed using the member access operator ```->``` to access members of a pointer.
+
+<!--------------------QUESTION 13-------------------->
+
+## #Question 13
+    What is the output of the following program?
+    
+        A. The program will cause a compilation error
+        B. 1
+        C. 2
+        D. 4
+        
+```cpp
+#include <iostream>
+using namespace std;
+
+class A {
+public:
+  int x;
+  void d() { x /= 2; }
+};
+
+class B : public A {
+public:
+  int y;
+  void d() { A::d(); }
+};
+
+int main(void) {
+
+  B b;                          // b.x == 0, b.y == (not sure if this behavior is defined)
+  b.x = b.y = 4;                // b.x == 4, b.y == 4
+  b.d();                        // b.x == 2, b.y == 4
+
+  cout << b.y / b.x << endl;    // output: 4 / 2 == 2
+
+  return 0;
+}
+```
+
+## #Solution & Explanation To Question 13
+#### The correct answer is _C_ (2):
+* This example code uses [inheritance](https://en.cppreference.com/book/intro/inheritance). Since B inherits from ```A``` publicly, ```B``` inherits all public members of ```A```. You can think of it like ```B``` having an anonymous/invisible reference of A thus also having all members of A.
+* Some terminology: ```A``` is ```superclass``` of ```B```. ```B``` is ```subclass``` of ```A```.
+* Class ```B``` defines a function, namely ```d()``` that has the same name as a function in its superclass. This is called ```function overriding```. B _redefines_ function ```b()```. Note that since ```B``` inherits from ```A```, we could call ```b.d()``` even if had not defined the function ```d()``` in ```B```! It would just call the function ```d()``` of its superclass ```A``` in that case.
+* The call to ```b.d()``` calls the overridden function instead of the one defined in ```A```. Here ```B.d()``` calls ```A.d()``` and ```b.x``` gets divided by 2.
+* Rest see comments in above code.
