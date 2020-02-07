@@ -289,7 +289,7 @@ int main(void) {
 #### The correct answer is _D_ (yza):
 * ```f1()``` uses the [ternary operator](https://en.cppreference.com/w/cpp/language/operator_other). It checks whether the passed char is equal to 'z'. If it is, the function returns 'a'. If it is not, the function returns the next char in the [ascii table](http://man7.org/linux/man-pages/man7/ascii.7.html) (```c + 1```).
 * ```f2()``` simply passes its only argument to ```f1()``` and since it is passed by reference (```char &c```) ```c``` also gets set to this return value. In other words variable ```x``` in main gets set to this return value. Finally ```c``` is returned from the function.
-* See the comments to understand how ```x``` is changing.
+* See the comments in above code to understand how ```x``` is changing.
 
 <!--------------------QUESTION 7-------------------->
 
@@ -597,7 +597,7 @@ int main(void) {
 * Some terminology: ```A``` is ```superclass``` of ```B```. ```B``` is ```subclass``` of ```A```.
 * Class ```B``` defines a function, namely ```d()``` that has the same name as a function in its superclass. This is called ```function overriding```. B _redefines_ function ```b()```. Note that since ```B``` inherits from ```A```, we could call ```b.d()``` even if had not defined the function ```d()``` in ```B```! It would just call the function ```d()``` of its superclass ```A``` in that case.
 * The call to ```b.d()``` calls the overridden function instead of the one defined in ```A```. Here ```B.d()``` calls ```A.d()``` and ```b.x``` gets divided by 2.
-* Rest see comments in above code.
+* Rest: see comments in above code.
 
 <!--------------------QUESTION 14-------------------->
 
@@ -853,8 +853,6 @@ int main(void) {
 
 <!--------------------QUESTION 19-------------------->
 
-// TODO
-
 # #Question 19
     What is the output of the following program?
     
@@ -864,11 +862,58 @@ int main(void) {
         D. 5
         
 ```cpp
+#include <iostream>
+#include <exception>
+#include <stdexcept>
+using namespace std;
 
+int i = 3;
+
+class A : public runtime_error {
+public:
+  A() : runtime_error("?") {}
+};
+
+class B : public logic_error {
+public:
+  B() : logic_error("!") {}
+};
+
+void f(void) {
+  i++;
+  throw B();
+  i++;
+}
+
+void g(void) {
+  try {
+    f();
+  } catch (A &a) {
+    throw A();
+  }
+}
+
+int main(void) {
+                                                    // i == 3
+  try {
+    g();                                            // i == 4
+    i++;
+  } catch (logic_error &l) {
+    i++;                                            // i == 5
+  } catch (...) {
+    i++;
+  }
+  cout << i << endl;                                // output: 5
+  return 0;
+}
 ```
 
 ## #Solution & Explanation To Question 19
 #### The correct answer is _X_ (Y):
+* Since ```i``` is defined outside of any scope it is a _global variable_.
+* Class ```A``` und class ```B``` inherit from runtime_error and logic_error respectively. Their constructors just call these class'es constructor with a _"?"_ and _"!"_ respectively. You can think of it as ```A``` now being a runtime_error and ```B``` now being an logic_error. (If A inherits from B, A is B but B is not necessarily A).
+* In main we call function ```g()```. From there we are calling function ```f()```. In ```f()``` we are post-incrementing ```i``` (now holds value 4) and throw ```B()```. Again: the ```i++;``` after the throw instruction is _dead code_. Since we are only catching exceptions of type ```A &``` we do not enter the catch-clause back in ```g()```. Back in main however we are catching the ```B()``` which acts like a logic_error thereby skipping the ```i++;```instruction after the call to ```g();```. The body of the catch-clause (```catch (logic_error &l)```) is executed and i gets post-incremented again - now storing the value 5.
+* See comments in above code to see when ```i``` actually changes.
 
 <!--------------------QUESTION 20-------------------->
 

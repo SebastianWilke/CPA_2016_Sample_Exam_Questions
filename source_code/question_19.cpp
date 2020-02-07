@@ -31,14 +31,15 @@ void g(void) {
 }
 
 int main(void) {
+  // i == 3
   try {
-    g();
+    g(); // i == 4
     i++;
   } catch (logic_error &l) {
-    i++;
+    i++; // i == 5
   } catch (...) {
     i++;
   }
-  cout << i << endl;
+  cout << i << endl; // output: 5
   return 0;
 }
