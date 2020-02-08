@@ -201,8 +201,8 @@ int main(void) {
 
 ## #Solution & Explanation To Question 4
 #### The correct answer is _C_ (8):
-* ```b``` gets assigned the value returned by function ```fun1```. This function takes an int (per value), increments it and returns it. Note that ```return p++``` returns the value and then increments it. In this case we call ```fun1``` with a = 1, so it returns 2.
-* ```c``` gets assigned the value returned by function ```fun2```. But this time we are passing it a reference to int (a reference to b = 2). Now the increment ```++p``` in ```fun2``` modifies the value of ```b``` (see comments)! Again we return it and increment it. Thus we return 3 but ```b``` gets post-incremented and now holds the value 4.
+* ```b``` gets assigned the value returned by function ```fun1()```. This function takes an int (per value), increments it and returns it. Note that ```return p++``` returns the value and then increments it. In this case we call ```fun1()``` with a = 1, so it returns 2.
+* ```c``` gets assigned the value returned by function ```fun2()```. But this time we are passing it a reference to int (a reference to b = 2). Now the increment ```++p``` in ```fun2()``` modifies the value of ```b``` (see comments)! Again we return it and increment it. Thus we return 3 but ```b``` gets post-incremented and now holds the value 4.
 
 <!--------------------QUESTION 5-------------------->
 
@@ -247,10 +247,9 @@ int main(void) {
 
 ## #Solution & Explanation To Question 5
 #### The correct answer is _D_ (4):
-* In C++ you can overload functions. That means functions can have the same name but must have different [signatures](https://en.cppreference.com/w/cpp/language/function) (different parameters).
-* ```v``` is a pointer to int and gets assigned the value returned by function ```fun()``` which returns a pointer to the beginning (starting address) of an int array of size 2.
-* Then follow two calls to function ```fun(int *, int, int)```. This function is pretty straight forward and sets the value at the passed int pointer at position of the second argument to the value of the third parameter (see comments).
-* ```fun(int *, int)``` just doubles the value stored at the position of the second parameter where the first parameter points to.
+* In C++ you can _overload_ functions. That means functions can have the same name but must have different [signatures](https://en.cppreference.com/w/cpp/language/function) (different parameter types). [See also](https://en.cppreference.com/w/cpp/language/overload_resolution). <br/> In this question function ```fun()``` is _overloaded_.
+* ```v *``` is a pointer to int and gets assigned the value returned by function ```fun()``` which returns a pointer to the beginning (starting address) of an int array of size 2.
+* Both functions ```fun(int *, int, int)``` ```fun(int *, int)``` expect the first parameter to be an array. <br/> The first one assigns the value of the third parameter to position of the second parameter (see comments). <br/> The second one just doubles the value stored at position of the second parameter.
 
 <!--------------------QUESTION 6-------------------->
 
@@ -288,7 +287,7 @@ int main(void) {
 ## #Solution & Explanation To Question 6
 #### The correct answer is _D_ (yza):
 * ```f1()``` uses the [ternary operator](https://en.cppreference.com/w/cpp/language/operator_other). It checks whether the passed char is equal to 'z'. If it is, the function returns 'a'. If it is not, the function returns the next char in the [ascii table](http://man7.org/linux/man-pages/man7/ascii.7.html) (```c + 1```).
-* ```f2()``` simply passes its only argument to ```f1()``` and since it is passed by reference (```char &c```) ```c``` also gets set to this return value. In other words variable ```x``` in main gets set to this return value. Finally ```c``` is returned from the function.
+* ```f2()``` simply passes its argument to ```f1()``` and - since it is passed by reference (```char &c```) - ```c``` also gets set to this return value. In other words variable ```x``` in main gets set to this return value. Finally ```c``` is returned from the function.
 * See the comments in above code to understand how ```x``` is changing.
 
 <!--------------------QUESTION 7-------------------->
@@ -325,8 +324,8 @@ int main(void) {
 
 ## #Solution & Explanation To Question 7
 #### The correct answer is _C_ (3):
-* First an array ```t``` of int is created: We get a pointer to int for two ints - and at both of these positions we store the address of another 2-element-array - giving us space to store 4 ints. We now have an array of array of int.
-* We then loop through every element in ```t```. The following list shows the sequence in which the positions in ```t``` are assigned:
+* First an array ```t``` of type ```int *``` is created. We get a pointer to int - and at both of these addresses we store yet another 2-element-array - giving us space to store 4 integers. We now have an array of array of int.
+* We then loop through every element in ```t```. The following list shows the sequence in which the positions in ```t``` are assigned in the for loop:
     ```
     i=0: t[0][0] = 0
     i=1: t[1][0] = 1
@@ -369,8 +368,8 @@ int main(void) {
 
 ## #Solution & Explanation To Question 8
 #### The correct answer is _C_ (2):
-* [+](https://en.cppreference.com/w/cpp/string/basic_string/operator%2B) as in ```s = s + t``` is the Non-member function of ```basic_string``` and just concatenates the strings ```s``` and ```t```.
-* Operator [compare](https://en.cppreference.com/w/cpp/string/basic_string/compare) checks the lexicographical order of the two strings. ```s.compare(t)``` returns a negative value, 0 or a positive if ```s``` comes before ```t```, both are equivalent or ```s``` comes after ```t``` in the lexicographical order. Since the character b comes after the letter A in the ascii table, ```s``` appears after ```t``` in lexicographically order. Thus ```compare()``` returns a positive value. A positive value is not greater than 0 (```s.compare(t) > 0```) so ```i``` gets assigned the value 1.
+* [+](https://en.cppreference.com/w/cpp/string/basic_string/operator%2B) as in ```s = s + t``` is the non-member function of ```basic_string``` and just concatenates the strings ```s``` and ```t```.
+* Operator [compare](https://en.cppreference.com/w/cpp/string/basic_string/compare) checks the lexicographical order of the two strings. ```s.compare(t)``` returns a negative value, 0 or a positive if ```s``` comes before ```t```, both are equivalent or ```s``` comes after ```t``` in the lexicographical order respectively. Since the character _b_ comes after the letter _A_ in the ascii table, ```s``` appears _after_ ```t``` in lexicographically order. Thus ```compare()``` returns a positive value. A positive value is not greater than 0 (```s.compare(t) > 0```) so ```i``` gets assigned the value 1.
 * Since ```s``` has a shorter length than ```t``` the expression ```s.length() < t.length()``` evaluates to true and ```j``` gets assigned the value 1 as well.
 
 <!--------------------QUESTION 9-------------------->
@@ -410,9 +409,9 @@ int main(void) {
 
 ## #Solution & Explanation To Question 9
 #### The correct answer is _C_ (3):
-* This one is pretty straight forward. We have two named namespaces definitions namely ```alpha``` and  ```beta```.
+* This one is pretty straight forward. We have two named namespace definitions, namely ```alpha``` and  ```beta```.
 * In main we than access ```beta::var``` and add to it the value of ```alpha::var```.
-* We then define a new scope (block). With the using-directive ```using namespace beta;``` we make every name in the namespace ```beta``` visible (available) in this scope (area between ```{``` and ```}```). Therefore when we use ```var``` in this scope, ```var``` refers to ```beta::var``` and the output is 3.
+* We then define a new scope (block / area between ```{``` and ```}```). With the using-directive ```using namespace beta;``` we make every name in the namespace ```beta``` visible (available) in this scope. Therefore when we use ```var``` in this scope, ```var``` refers to ```beta::var``` and the output is 3.
 
 <!--------------------QUESTION 10-------------------->
 
@@ -550,7 +549,7 @@ int main(void) {
 ## #Solution & Explanation To Question 12
 #### The correct answer is _B_ (1):
 * This time starting in main we create an object of type ```B *``` called ```b``` assigning it the pointer returned by the new operator call ```new B()```.
-* Thus the constructor of class ```B``` is called. This in turn calls the constructor ```A(int)``` of its member ```a```. ```B```'s ```a.a``` is set by ```A```'s constructor to the parameter passed + 1 = 0 + 1 = 1.
+* Thus the constructor of class ```B``` is called. This in turn calls the constructor ```A(int)``` of its member ```a```. ```B```'s ```a.a``` is set by ```A```'s constructor to the parameter passed + 1 => 0 + 1 => 1.
 * This value (1) is printed using the member access operator ```->``` to access members of a pointer.
 
 <!--------------------QUESTION 13-------------------->
